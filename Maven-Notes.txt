@@ -1,0 +1,87 @@
+-> Maven
+	- build tool
+	- primarily used for *dependency management* and version controlling
+	- will fetch all the transitive dependencies required for the direct dependency
+	- download from maven central repository
+	- can specify multiple dependencies (.jar)
+	- create directory structure as per project requirement
+	- give a starter template for the project
+	- help in management of *build life cycle* of the project
+	- all requierd dependencies are found in maven central repository
+Steps to download maven:
+	1) download maven zip
+	2) extract
+	3) M2_HOME - path to maven project
+	4) JAVA_HOME - path to jdk
+	5) path - maven project\bin path
+	6) mvn --version
+
+[http://repo.maven.apache.org/maven2/archetype-catalog.xml]- will require later
+- archetype - starter template
+
+- cmd to create maven project - mvn archetype:generate
+- groupId: organization name - default package name
+- artefactId: maven_starter
+- target- holds final deployable of project (.jar file) - console based application
+	- .war file - web based application
+	- holds related class files for java files in src
+- pom.xml (Project Object Model) - configuration file
+	- heart of maven application
+	- default packagin for maven - .jar
+	- maven.compiler.source - jdk version for compiling project
+	- maven.compiler.target - jdk version for running project
+- <dependencies></dependencies> - most important part of pom.xml
+<dependency>
+      <groupId></groupId>	// mandatory
+      <artifactId></artifactId>	// mandatory
+      <version></version>	// mandatory
+      <scope>test</scope>
+    </dependency>
+
+	- compile all java files in a single command
+	- test all test cases at once
+
+Phases of build life cycle:
+/|\	1) validate: check all contents of pom.xml
+ |	2) clean: remove the content of target folder
+ |	3) compile: compile source code + test code - keep them in target folder
+ |	4) test: execute test code - gives a report (pass + failed test cases)
+ |	5) package: create a single jar/war file from the entire project (packaging- tag to specify <packaging>)
+ |		maven_starter-1.0-SNAPSHOT.jar
+ |	6) install: install generated jar file into a local repository ( execute package as well) (sab karta hai yeh)
+
+
+- JUnit - test case framework
+	- @Test - marks the method as a test method
+	- fail()- explicitly fail a method - org.junit.assert class
+
+- import static package.class.method - to import static methods
+- @Test(expected=IllegalArgumentException.class) // will pass only when the calling method returns the specified exception
+
+- execute java class from jar file -> java -cp target\maven_starter-1.0-SNAPSHOT.jar com.lti.Main
+	- '-cp' will search class from particular jar file
+
+- configure catalog with URL - http://repo.maven.apache.org/maven2/archetype-catalog.xml
+- search 'maven-archetype-webapp' (org.apache.maven.archetypes)
+- groupId - com.lti
+- artefactId: maven_webapp_starter
+	- gives error : servlet-api.jar and jsp-api.jar are not present
+- search for jar files on maven central repository
+
+------------------------------------------------
+-> Deploy war file on server
+	1) open cmd from tomcat\bin folder
+	2) startup.bat
+		- gives error	- change port - apache-tomcat\conf\server.xml
+	3) startup.bat
+	4) open http://localhost:9090 - should open apache tomcat page
+	5) click on "managerApp"
+	6) find Id, Password from tomcat-users.xml
+	7) uncomment user,password and add a new -<user username="anukool" password="anukool" roles="manager-gui"/>
+		- role='manager-gui' will enable the user to see the manager-app interface
+	8) shutdown.bat (server is static)
+	9) startup.bat
+	10) login
+	11) deploy war file - select file and deploy
+	12) gives 'OK' message
+	13) open file in a new tab - will run
